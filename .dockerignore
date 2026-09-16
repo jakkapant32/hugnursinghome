@@ -1,0 +1,6 @@
+.git
+.gitignore
+Data.txt
+includes/db.config.php
+*.md
+terminals
