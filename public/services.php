@@ -1,0 +1,34 @@
+<?php
+require_once __DIR__ . '/../includes/db.php';
+
+$services = $pdo->query(
+    "SELECT title, description, icon FROM services WHERE is_published = 1 ORDER BY sort_order ASC"
+)->fetchAll();
+
+$page_title = 'บริการของเรา';
+$active_page = 'services';
+require_once __DIR__ . '/../includes/icons.php';
+require_once __DIR__ . '/../includes/header.php';
+?>
+
+<section class="section">
+  <div class="container">
+    <div class="section-head">
+      <h2>บริการและสิ่งอำนวยความสะดวก</h2>
+      <p>ครบวงจรตั้งแต่สุขภาพกาย สุขภาพใจ ไปจนถึงกิจกรรมเสริมคุณภาพชีวิต</p>
+    </div>
+    <div class="grid-3">
+      <?php foreach ($services as $s): ?>
+      <div class="card">
+        <div class="card-body" style="text-align:center;">
+          <div class="icon"><?= hug_icon('heart', 22) ?></div>
+          <h3><?= htmlspecialchars($s['title']) ?></h3>
+          <p><?= htmlspecialchars($s['description']) ?></p>
+        </div>
+      </div>
+      <?php endforeach; ?>
+    </div>
+  </div>
+</section>
+
+<?php require_once __DIR__ . '/../includes/footer.php'; ?>

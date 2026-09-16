@@ -1,0 +1,300 @@
+/* =========================================================
+   Hug Nursing Home — Admin System Stylesheet
+   ใช้ชุดสีและฟอนต์เดียวกับหน้าเว็บประชาสัมพันธ์เพื่อความต่อเนื่องของแบรนด์
+   โครงร่าง: แถบเมนูซ้ายทึบสีเขียวเข้ม + พื้นที่เนื้อหาแบบแผงเส้นบาง (ไม่ใช้เงาการ์ดซ้ำ)
+   ========================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;500;600;700&family=Prompt:wght@400;500;600;700&display=swap');
+
+:root {
+  --green-900: #0F4C36;
+  --green-700: #15795A;
+  --green-600: #1B9E6F;
+  --green-100: #E3F3EC;
+  --rose: #E05572;
+  --rose-100: #FDECEF;
+  --forest: var(--green-600);
+  --forest-dark: var(--green-900);
+  --cream: #F4F7F5;
+  --amber: var(--rose);
+  --amber-dark: #c9435f;
+  --ink: #233129;
+  --muted: #5C6B62;
+  --line: #E2E8E4;
+  --white: #FFFFFF;
+  --font-display: 'Prompt', 'Noto Sans Thai', sans-serif;
+  --font-body: 'Noto Sans Thai', 'Prompt', sans-serif;
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  color: var(--ink);
+  background: var(--cream);
+}
+h1, h2, h3, h4 { font-family: var(--font-display); margin: 0 0 .4em; color: var(--forest-dark); }
+
+/* ---------- Layout shell ---------- */
+.admin-shell { display: flex; min-height: 100vh; }
+
+.admin-sidebar {
+  width: 240px;
+  background: var(--forest-dark);
+  color: #DCEBE0;
+  flex-shrink: 0;
+  padding: 22px 0;
+}
+.admin-brand {
+  display: flex; align-items: center; gap: 10px;
+  font-family: var(--font-display); font-weight: 600; font-size: 1.05rem;
+  color: var(--white);
+  padding: 0 22px 22px;
+  border-bottom: 1px solid rgba(255,255,255,.12);
+  margin-bottom: 14px;
+}
+.admin-brand .mark {
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  background: var(--rose-100);
+  color: var(--rose);
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+}
+
+.admin-brand .mark svg {
+  display: block;
+}
+
+.admin-nav .nav-ico {
+  width: 20px;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  opacity: 0.92;
+}
+
+.admin-nav .nav-ico svg {
+  display: block;
+}
+.admin-nav { list-style: none; margin: 0; padding: 0; }
+.admin-nav a {
+  display: flex; align-items: center; gap: 10px;
+  padding: 11px 22px;
+  color: #C9D9CD;
+  text-decoration: none;
+  font-size: .93rem;
+  border-left: 3px solid transparent;
+}
+.admin-nav a:hover { background: rgba(255,255,255,.06); color: var(--white); }
+.admin-nav a.active {
+  background: rgba(255,255,255,.08);
+  color: var(--white);
+  border-left-color: var(--green-600);
+}
+
+.admin-main { flex: 1; min-width: 0; }
+
+.admin-topbar {
+  background: var(--white);
+  border-bottom: 1px solid var(--line);
+  padding: 16px 28px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.admin-topbar .who { display: flex; align-items: center; gap: 10px; font-size: .93rem; }
+.admin-topbar .who .avatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--green-100);
+  color: var(--green-700);
+  display: grid;
+  place-items: center;
+}
+
+.admin-topbar .who .avatar svg {
+  display: block;
+}
+.admin-content { padding: 28px; }
+
+/* ---------- Stat cards ---------- */
+.stat-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; margin-bottom: 22px; }
+.stat-card {
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 18px 20px;
+  display: flex; align-items: center; gap: 14px;
+}
+.stat-card .icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  color: var(--white);
+  background: var(--forest);
+  flex-shrink: 0;
+}
+
+.stat-card .icon svg {
+  display: block;
+}
+
+.stat-card .icon.amber { background: var(--amber-dark); }
+.stat-card .icon.rose { background: var(--rose); }
+.stat-card .icon.icon-dark { background: var(--forest-dark); }
+.stat-card .label { font-size: .82rem; color: var(--muted); }
+.stat-card .value { font-family: var(--font-display); font-size: 1.4rem; font-weight: 600; }
+
+@media (max-width: 1000px) { .stat-row { grid-template-columns: repeat(2, 1fr); } }
+
+/* ---------- Panels ---------- */
+.panel {
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 20px;
+}
+.panel-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+.panel-head h3 { margin: 0; }
+
+/* ---------- Tables ---------- */
+table.data-table { width: 100%; border-collapse: collapse; font-size: .92rem; }
+table.data-table th {
+  text-align: left; padding: 10px 12px;
+  border-bottom: 1px solid var(--line);
+  color: var(--muted); font-weight: 600; font-size: .82rem;
+}
+table.data-table td { padding: 11px 12px; border-bottom: 1px solid var(--line); }
+table.data-table tr:hover td { background: var(--cream); }
+
+.badge {
+  display: inline-block; padding: 3px 10px; border-radius: 20px;
+  font-size: .78rem; font-weight: 600;
+}
+.badge-active { background: #E5F1E8; color: var(--forest-dark); }
+.badge-pending { background: #FCEEE0; color: var(--amber-dark); }
+.badge-inactive { background: #F3E3E0; color: #A8453A; }
+
+.icon-btn {
+  border: 1px solid var(--line);
+  background: var(--white);
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  display: inline-grid;
+  place-items: center;
+  cursor: pointer;
+  color: var(--muted);
+  text-decoration: none;
+}
+
+.icon-btn svg {
+  display: block;
+}
+
+.icon-btn:hover {
+  border-color: var(--forest);
+  color: var(--forest);
+}
+
+.icon-btn-danger:hover {
+  border-color: var(--rose);
+  color: var(--rose);
+}
+
+/* ---------- Forms ---------- */
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.form-field { margin-bottom: 14px; }
+.form-field label { display: block; font-size: .85rem; color: var(--muted); margin-bottom: 6px; }
+.form-field input, .form-field select, .form-field textarea {
+  width: 100%; padding: 10px 12px; border: 1px solid var(--line);
+  border-radius: 8px; font-family: var(--font-body); font-size: .93rem;
+}
+
+/* ---------- Login page ---------- */
+.login-shell {
+  min-height: 100vh; display: flex; align-items: center; justify-content: center;
+  background: var(--cream);
+  padding: 20px;
+}
+.login-card {
+  width: 100%; max-width: 380px;
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 36px 32px;
+}
+.login-card .brand-mark {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: var(--rose-100);
+  color: var(--rose);
+  display: grid;
+  place-items: center;
+  margin-bottom: 18px;
+}
+
+.login-card .brand-mark svg {
+  display: block;
+}
+
+.login-card-wide {
+  max-width: 420px;
+}
+
+.auth-lead {
+  color: var(--muted);
+  font-size: 0.9rem;
+  margin-bottom: 22px;
+}
+
+.auth-foot {
+  margin-top: 20px;
+  text-align: center;
+  font-size: 0.88rem;
+  color: var(--muted);
+}
+
+.auth-foot a {
+  color: var(--green-700);
+  font-weight: 500;
+}
+
+.auth-foot a:hover {
+  color: var(--green-600);
+}
+
+.auth-foot-muted {
+  margin-top: 10px;
+  font-size: 0.82rem;
+  opacity: 0.9;
+}
+
+.login-card .form-field input:focus {
+  outline: none;
+  border-color: var(--green-600);
+  box-shadow: 0 0 0 2px rgba(27, 158, 111, 0.15);
+}
+
+.success-text {
+  color: var(--green-700);
+  background: var(--green-100);
+  font-size: 0.88rem;
+  margin-bottom: 16px;
+  padding: 12px 14px;
+  border-radius: 10px;
+}
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  padding: 11px 22px; border-radius: 8px; border: none;
+  font-family: var(--font-display); font-weight: 500; font-size: .93rem;
+  cursor: pointer;
+}
+.btn-primary { background: var(--forest); color: var(--white); width: 100%; }
+.btn-primary:hover { background: var(--forest-dark); }
+.error-text { color: #B3261E; font-size: .87rem; margin-bottom: 14px; }

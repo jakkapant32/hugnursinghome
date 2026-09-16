@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ฮักเนอร์สซิ่งโฮม | ศูนย์ดูแลผู้สูงอายุ ขอนแก่น</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;500;600;700&family=Prompt:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --green-900:#0F4C36;
+  --green-700:#15795A;
+  --green-600:#1B9E6F;
+  --green-100:#E3F3EC;
+  --rose:#E05572;
+  --rose-100:#FDECEF;
+  --ink:#233129;
+  --ink-soft:#5C6B62;
+  --line:#E2E8E4;
+  --bg:#F4F7F5;
+  --white:#fff;
+  --radius:14px;
+  --shadow:0 4px 18px rgba(15,76,54,.08);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Noto Sans Thai','Prompt',sans-serif;
+  color:var(--ink);background:var(--bg);line-height:1.75;
+}
+h1,h2,h3,.logo-text{font-family:'Prompt','Noto Sans Thai',sans-serif;line-height:1.35}
+a{text-decoration:none;color:inherit}
+img{max-width:100%;display:block}
+.wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+
+/* ---------- NAVBAR ---------- */
+header{
+  position:sticky;top:0;z-index:50;background:var(--white);
+  border-bottom:1px solid var(--line);
+}
+.nav{display:flex;align-items:center;gap:28px;height:72px}
+.logo{display:flex;align-items:center;gap:10px}
+.logo-mark{
+  width:40px;height:40px;border-radius:12px;background:var(--rose-100);
+  display:grid;place-items:center;color:var(--rose);flex:0 0 40px;
+}
+.logo-mark svg{stroke-width:1.7}
+.logo-text{font-weight:700;font-size:19px;color:var(--green-900)}
+.logo-text small{display:block;font-size:11px;font-weight:400;color:var(--ink-soft);letter-spacing:.06em}
+.menu{display:flex;gap:26px;margin-left:auto;font-size:15px}
+.menu a{padding:6px 0;border-bottom:2px solid transparent;transition:.2s}
+.menu a:hover,.menu a.active{color:var(--green-700);border-color:var(--green-600)}
+.nav-actions{display:flex;gap:10px}
+.btn{
+  display:inline-flex;align-items:center;gap:8px;border:0;cursor:pointer;
+  font-family:inherit;font-size:15px;font-weight:500;border-radius:10px;padding:10px 20px;
+  transition:.2s;
+}
+.btn-ghost{background:var(--green-100);color:var(--green-700)}
+.btn-ghost:hover{background:#d3ece1}
+.btn-green{background:var(--green-600);color:#fff}
+.btn-green:hover{background:var(--green-700)}
+.btn-rose{background:var(--rose);color:#fff}
+.btn-rose:hover{background:#c9435f}
+.btn-lg{padding:13px 28px;font-size:16px}
+.nav-toggle{display:none;background:none;border:0;color:var(--green-900);cursor:pointer;place-items:center}
+
+/* ---------- HERO ---------- */
+.hero{
+  position:relative;min-height:520px;display:flex;align-items:center;
+  background:linear-gradient(100deg,rgba(255,255,255,.96) 0%,rgba(255,255,255,.88) 42%,rgba(255,255,255,.1) 68%),
+             linear-gradient(135deg,#cfe6da,#9fd0ba 55%,#7fc2a6);
+  overflow:hidden;
+}
+.hero-photo{position:absolute;inset:0 0 0 42%;background:#cfe6da}
+.hero-photo img{width:100%;height:100%;object-fit:cover;object-position:center 30%}
+.hero-photo::after{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(90deg,rgba(255,255,255,.95) 0%,rgba(255,255,255,.35) 22%,transparent 55%);
+}
+.hero>.wrap{margin-right:auto;margin-left:clamp(36px,7vw,96px);padding-left:8px;padding-right:24px}
+.hero-inner{position:relative;max-width:560px;padding:64px 0}
+.hero h1{font-size:clamp(34px,4.4vw,52px);font-weight:700;color:var(--green-800,#13634A)}
+.hero h1 .line2{display:block;color:var(--rose)}
+.hero p.lead{margin:18px 0 8px;font-size:18px;color:var(--ink-soft)}
+.hero p.sub{color:var(--ink-soft);margin-bottom:28px}
+.hero-cta{display:flex;gap:12px;flex-wrap:wrap}
+.hero-stats{display:flex;gap:34px;margin-top:38px;flex-wrap:wrap}
+.hero-stats div strong{display:block;font-family:'Prompt';font-size:26px;color:var(--green-700)}
+.hero-stats div span{font-size:14px;color:var(--ink-soft)}
+
+/* ---------- SECTION ---------- */
+section{padding:72px 0}
+.sec-head{text-align:center;max-width:620px;margin:0 auto 44px}
+.sec-head h2{font-size:30px;color:var(--green-900)}
+.sec-head p{color:var(--ink-soft);margin-top:8px}
+.sec-head::after{
+  content:"";display:block;width:56px;height:3px;border-radius:3px;
+  background:var(--green-600);margin:18px auto 0;
+}
+
+/* ---------- SERVICES ---------- */
+.services{background:var(--white)}
+.grid-5{display:grid;grid-template-columns:repeat(5,1fr);gap:20px}
+.card-service{
+  background:var(--white);border:1px solid var(--line);border-radius:var(--radius);
+  padding:28px 20px;text-align:center;transition:.25s;
+}
+.card-service:hover{box-shadow:var(--shadow);transform:translateY(-4px);border-color:#c9e5d9}
+.ico{
+  width:56px;height:56px;margin:0 auto 16px;border-radius:50%;
+  display:grid;place-items:center;
+}
+.ico.rose{background:var(--rose-100);color:var(--rose)}
+.ico.green{background:var(--green-100);color:var(--green-600)}
+.ico.gold{background:#FDF3DF;color:#D9A420}
+.card-service h3{font-size:17px;margin-bottom:8px}
+.card-service p{font-size:14px;color:var(--ink-soft);line-height:1.7}
+
+/* ---------- ABOUT ---------- */
+.about-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center}
+.about h2{font-size:30px;color:var(--green-900);margin-bottom:6px}
+.about .kicker{color:var(--rose);font-weight:500;margin-bottom:10px}
+.about p{color:var(--ink-soft);margin-bottom:16px}
+.about ul{list-style:none;display:grid;gap:12px;margin:22px 0 28px}
+.about li{display:flex;gap:10px;align-items:flex-start;font-size:15px}
+.tick{
+  flex:0 0 22px;height:22px;border-radius:50%;background:var(--green-100);
+  color:var(--green-600);display:grid;place-items:center;font-size:12px;margin-top:3px;
+}
+.about-photo{border-radius:20px;height:400px;position:relative;background:#E7F2EB}
+.about-photo img{width:100%;height:100%;object-fit:cover;border-radius:20px}
+.about-photo::after{
+  content:"12 ปีแห่งการดูแล";position:absolute;left:-16px;bottom:26px;
+  background:var(--white);color:var(--green-700);font-weight:600;
+  padding:12px 20px;border-radius:12px;box-shadow:var(--shadow);font-size:15px;
+}
+
+/* ---------- ACTIVITIES ---------- */
+.activities{background:var(--white)}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.card{
+  background:var(--white);border:1px solid var(--line);border-radius:var(--radius);
+  overflow:hidden;transition:.25s;
+}
+.card:hover{box-shadow:var(--shadow);transform:translateY(-4px)}
+.card-img{height:190px;overflow:hidden;background:#E7F2EB}
+.card-img img{width:100%;height:100%;object-fit:cover}
+.card-body{padding:20px}
+.tag{
+  display:inline-block;font-size:12px;color:var(--green-700);background:var(--green-100);
+  padding:4px 12px;border-radius:20px;margin-bottom:10px;
+}
+.card-body h3{font-size:17px;margin-bottom:8px}
+.card-body p{font-size:14px;color:var(--ink-soft)}
+.card-date{font-size:13px;color:#8c9b93;margin-top:14px}
+.center{text-align:center;margin-top:40px}
+
+/* ---------- CTA ---------- */
+.cta{background:var(--green-900);color:#fff;text-align:center}
+.cta h2{font-size:30px;margin-bottom:12px}
+.cta p{color:rgba(255,255,255,.78);max-width:560px;margin:0 auto 28px}
+.cta .btn-ghost{background:rgba(255,255,255,.12);color:#fff}
+.cta .btn-ghost:hover{background:rgba(255,255,255,.2)}
+
+/* ---------- FOOTER ---------- */
+footer{background:#0B3A29;color:rgba(255,255,255,.72);padding:56px 0 0;font-size:14px}
+.f-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1.2fr;gap:36px;padding-bottom:40px}
+footer h4{color:#fff;font-family:'Prompt';font-size:16px;margin-bottom:16px}
+footer ul{list-style:none;display:grid;gap:9px}
+footer a:hover{color:#fff}
+.f-logo{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.f-logo .logo-text{color:#fff}
+.f-bottom{border-top:1px solid rgba(255,255,255,.12);padding:18px 0;text-align:center;font-size:13px}
+
+/* ---------- AI CHAT ---------- */
+.chat-fab{
+  position:fixed;right:24px;bottom:24px;z-index:60;width:58px;height:58px;border-radius:50%;
+  background:var(--green-600);color:#fff;border:0;cursor:pointer;display:grid;place-items:center;
+  box-shadow:0 8px 24px rgba(15,76,54,.3);
+}
+.chat-box{
+  position:fixed;right:24px;bottom:96px;z-index:60;width:330px;max-width:calc(100vw - 32px);
+  background:#fff;border-radius:16px;box-shadow:0 12px 40px rgba(0,0,0,.18);
+  overflow:hidden;display:none;
+}
+.chat-box.open{display:block}
+.chat-head{background:var(--green-900);color:#fff;padding:14px 18px;display:flex;align-items:center;gap:10px;font-size:15px}
+.chat-head button{margin-left:auto;background:none;border:0;color:#fff;cursor:pointer;display:grid;place-items:center;opacity:.8}
+.chat-head button:hover{opacity:1}
+.chat-head svg{display:block}
+.chat-body{padding:18px;background:#F7FAF8;max-height:280px;overflow-y:auto}
+.bubble{background:var(--green-100);padding:12px 14px;border-radius:12px;font-size:14px;margin-bottom:14px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{background:#fff;border:1px solid var(--line);border-radius:20px;padding:7px 13px;font-size:13px;cursor:pointer}
+.chip:hover{border-color:var(--green-600);color:var(--green-700)}
+.chat-foot{display:flex;gap:8px;padding:12px;border-top:1px solid var(--line)}
+.chat-foot input{flex:1;border:1px solid var(--line);border-radius:10px;padding:10px 12px;font-family:inherit;font-size:14px;outline:none}
+.chat-foot input:focus{border-color:var(--green-600)}
+.chat-foot button{background:var(--green-600);color:#fff;border:0;border-radius:10px;width:42px;cursor:pointer;display:grid;place-items:center}
+
+:focus-visible{outline:2px solid var(--green-600);outline-offset:2px}
+
+/* ---------- RESPONSIVE ---------- */
+@media(max-width:980px){
+  .grid-5{grid-template-columns:repeat(2,1fr)}
+  .about-grid{grid-template-columns:1fr;gap:32px}
+  .grid-3{grid-template-columns:1fr}
+  .f-grid{grid-template-columns:1fr 1fr}
+  .hero-photo{inset:0}
+  .hero-photo::after{background:rgba(255,255,255,.82)}
+}
+@media(max-width:760px){
+  .menu,.nav-actions{
+    display:none;position:absolute;top:72px;left:0;right:0;background:#fff;
+    flex-direction:column;padding:16px 20px;border-bottom:1px solid var(--line);gap:12px;
+  }
+  .menu.show,.nav-actions.show{display:flex}
+  .nav-actions.show{top:auto;margin-top:0;position:static}
+  .nav-toggle{display:grid;margin-left:auto}
+  .grid-5{grid-template-columns:1fr}
+  .f-grid{grid-template-columns:1fr}
+}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<header>
+  <div class="wrap nav">
+    <a href="#" class="logo">
+      <span class="logo-mark"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20.5 4.2 12.9a4.6 4.6 0 0 1 6.5-6.5l1.3 1.3 1.3-1.3a4.6 4.6 0 0 1 6.5 6.5z"/></svg></span>
+      <span class="logo-text">ฮักเนอร์สซิ่งโฮม<small>HUG NURSING HOME</small></span>
+    </a>
+    <button class="nav-toggle" onclick="document.querySelectorAll('.menu,.nav-actions').forEach(e=>e.classList.toggle('show'))" aria-label="เปิดเมนู"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    <nav class="menu">
+      <a href="#" class="active">หน้าแรก</a>
+      <a href="#about">เกี่ยวกับเรา</a>
+      <a href="#services">บริการของเรา</a>
+      <a href="#activities">กิจกรรม</a>
+      <a href="#news">ข่าวสาร</a>
+      <a href="#contact">ติดต่อเรา</a>
+    </nav>
+    <div class="nav-actions">
+      <a class="btn btn-ghost" href="public/login.php">เข้าสู่ระบบ</a>
+      <a class="btn btn-green" href="public/register.php">ลงทะเบียน</a>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-photo"><img src="https://images.pexels.com/photos/18271866/pexels-photo-18271866.jpeg?auto=compress&cs=tinysrgb&w=1600" alt="พยาบาลดูแลผู้สูงอายุด้วยรอยยิ้ม" loading="eager"></div>
+  <div class="wrap">
+    <div class="hero-inner">
+      <h1>ดูแลด้วยใจ<span class="line2">ห่วงใยเหมือนคนในครอบครัว</span></h1>
+      <p class="lead">ศูนย์ดูแลผู้สูงอายุฮักเนอร์สซิ่งโฮม จังหวัดขอนแก่น</p>
+      <p class="sub">ทีมพยาบาลวิชาชีพและผู้ช่วยดูแลประจำการตลอด 24 ชั่วโมง พร้อมสภาพแวดล้อมที่ปลอดภัย สะอาด และอบอุ่นเหมือนอยู่บ้าน</p>
+      <div class="hero-cta">
+        <a class="btn btn-green btn-lg" href="#services">ดูบริการทั้งหมด</a>
+        <a class="btn btn-rose btn-lg" href="#contact">นัดเข้าเยี่ยมชม</a>
+      </div>
+      <div class="hero-stats">
+        <div><strong>52</strong><span>ผู้สูงอายุที่เราดูแล</span></div>
+        <div><strong>18</strong><span>พยาบาลและผู้ช่วย</span></div>
+        <div><strong>24 ชม.</strong><span>ดูแลไม่มีวันหยุด</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>บริการของเรา</h2>
+      <p>เราพร้อมดูแลผู้สูงอายุอย่างครบวงจร ตั้งแต่สุขภาพกาย จิตใจ ไปจนถึงกิจวัตรประจำวัน</p>
+    </div>
+    <div class="grid-5">
+      <div class="card-service">
+        <div class="ico rose"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20.5 4.2 12.9a4.6 4.6 0 0 1 6.5-6.5l1.3 1.3 1.3-1.3a4.6 4.6 0 0 1 6.5 6.5z"/><path d="M3.5 12.5h4l1.5-3 2 6 2-4 1.5 1h6"/></svg></div>
+        <h3>ดูแลสุขภาพ</h3>
+        <p>ตรวจวัดสัญญาณชีพ วัดความดัน และติดตามอาการทุกวันโดยพยาบาลวิชาชีพ</p>
+      </div>
+      <div class="card-service">
+        <div class="ico green"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="4.6" r="2"/><path d="M12 7v6m0 0-3.5 5M12 13l3.5 5M7 9.5 12 8l5 1.5"/></svg></div>
+        <h3>กายภาพบำบัด</h3>
+        <p>ฟื้นฟูกล้ามเนื้อและการเคลื่อนไหว ตามโปรแกรมเฉพาะบุคคล</p>
+      </div>
+      <div class="card-service">
+        <div class="ico gold"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 11.5h17a8.5 8.5 0 0 1-8.5 7 8.5 8.5 0 0 1-8.5-7Z"/><path d="M2.5 21h19M9 8c0-1.2-1-1.6-1-2.8S9 3 9 3M13 8c0-1.5-1.2-2-1.2-3.5S13 2.5 13 2.5M17 8c0-1.2-1-1.6-1-2.8"/></svg></div>
+        <h3>อาหารและโภชนาการ</h3>
+        <p>อาหารครบ 5 หมู่ ปรุงสดใหม่ ปรับสูตรตามโรคประจำตัว</p>
+      </div>
+      <div class="card-service">
+        <div class="ico green"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8.5" r="3"/><path d="M3 19.5a6 6 0 0 1 12 0"/><path d="M16 6.2a3 3 0 0 1 0 5.6M17.5 14.5a6 6 0 0 1 3.5 5"/></svg></div>
+        <h3>กิจกรรมสันทนาการ</h3>
+        <p>กิจกรรมกลุ่มเสริมสุขภาพจิต คลายเหงา และสร้างมิตรภาพใหม่</p>
+      </div>
+      <div class="card-service">
+        <div class="ico rose"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.2V12l3.2 2"/></svg></div>
+        <h3>ดูแล 24 ชั่วโมง</h3>
+        <p>เจ้าหน้าที่เข้าเวรตลอดคืน พร้อมรับมือเหตุฉุกเฉินทันที</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="wrap about-grid">
+    <div>
+      <p class="kicker">เกี่ยวกับเรา</p>
+      <h2>บ้านหลังที่สองของผู้สูงวัย</h2>
+      <p>ฮักเนอร์สซิ่งโฮมเปิดให้บริการมาตั้งแต่ปี 2555 ด้วยความตั้งใจว่าผู้สูงอายุทุกคนควรได้รับการดูแลอย่างมีศักดิ์ศรีและอบอุ่น เราจึงออกแบบทุกพื้นที่ให้ปลอดภัยและเดินได้สะดวก พร้อมทีมงานที่รู้จักผู้สูงอายุทุกคนเป็นรายบุคคล</p>
+      <ul>
+        <li><span class="tick"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 12.5 9.5 17.5 19.5 7"/></svg></span> พยาบาลวิชาชีพประจำการ พร้อมผู้ช่วยดูแลตลอด 24 ชั่วโมง</li>
+        <li><span class="tick"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 12.5 9.5 17.5 19.5 7"/></svg></span> ห้องพักส่วนตัวและห้องรวม มีระบบเรียกฉุกเฉินทุกเตียง</li>
+        <li><span class="tick"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 12.5 9.5 17.5 19.5 7"/></svg></span> รายงานสุขภาพถึงครอบครัวผ่านระบบออนไลน์ทุกสัปดาห์</li>
+        <li><span class="tick"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 12.5 9.5 17.5 19.5 7"/></svg></span> ประสานโรงพยาบาลใกล้เคียง พร้อมรถรับส่งเมื่อมีนัดหมอ</li>
+      </ul>
+      <a class="btn btn-green btn-lg" href="#contact">พูดคุยกับเจ้าหน้าที่</a>
+    </div>
+    <div class="about-photo"><img src="https://images.pexels.com/photos/18459193/pexels-photo-18459193.jpeg?auto=compress&cs=tinysrgb&w=1000" alt="ผู้ช่วยดูแลเสิร์ฟน้ำชาให้ผู้สูงอายุในห้องพัก" loading="lazy"></div>
+  </div>
+</section>
+
+<!-- ACTIVITIES -->
+<section class="activities" id="activities">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>กิจกรรมและข่าวสาร</h2>
+      <p>ความเคลื่อนไหวล่าสุดจากศูนย์ดูแลผู้สูงอายุฮักเนอร์สซิ่งโฮม</p>
+    </div>
+    <div class="grid-3" id="news">
+      <article class="card">
+        <div class="card-img"><img src="https://images.pexels.com/photos/11674389/pexels-photo-11674389.jpeg?auto=compress&cs=tinysrgb&w=800" alt="ผู้สูงอายุออกกำลังกายบนเก้าอี้เป็นกลุ่ม" loading="lazy"></div>
+        <div class="card-body">
+          <span class="tag">กิจกรรม</span>
+          <h3>กิจกรรมออกกำลังกายยามเช้า</h3>
+          <p>ยืดเหยียดและบริหารข้อต่อเบา ๆ ทุกเช้าวันจันทร์ถึงศุกร์ นำโดยนักกายภาพบำบัดประจำศูนย์</p>
+          <p class="card-date">20 พฤษภาคม 2567</p>
+        </div>
+      </article>
+      <article class="card">
+        <div class="card-img"><img src="https://images.pexels.com/photos/18459198/pexels-photo-18459198.jpeg?auto=compress&cs=tinysrgb&w=800" alt="เจ้าหน้าที่ดูแลผู้สูงอายุในบรรยากาศอบอุ่น" loading="lazy"></div>
+        <div class="card-body">
+          <span class="tag">กิจกรรม</span>
+          <h3>วันสงกรานต์ รดน้ำขอพรผู้สูงอายุ</h3>
+          <p>ครอบครัวและเจ้าหน้าที่ร่วมรดน้ำดำหัว สืบสานประเพณีไทยพร้อมอาหารกลางวันพิเศษ</p>
+          <p class="card-date">13 เมษายน 2567</p>
+        </div>
+      </article>
+      <article class="card">
+        <div class="card-img"><img src="https://images.pexels.com/photos/7446757/pexels-photo-7446757.jpeg?auto=compress&cs=tinysrgb&w=800" alt="ตรวจวัดความดันโลหิตให้ผู้สูงอายุ" loading="lazy"></div>
+        <div class="card-body">
+          <span class="tag">ข่าวสาร</span>
+          <h3>ตรวจสุขภาพประจำปีฟรีสำหรับสมาชิก</h3>
+          <p>ร่วมกับโรงพยาบาลในพื้นที่ ตรวจเลือด วัดมวลกระดูก และประเมินภาวะสมองเสื่อม</p>
+          <p class="card-date">19 มีนาคม 2567</p>
+        </div>
+      </article>
+    </div>
+    <div class="center"><a class="btn btn-ghost btn-lg" href="public/news.php">ดูกิจกรรมทั้งหมด</a></div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta" id="contact">
+  <div class="wrap">
+    <h2>อยากให้เราดูแลคนที่คุณรักใช่ไหม</h2>
+    <p>นัดเข้าชมสถานที่ได้ทุกวัน เวลา 09.00–17.00 น. หรือโทรสอบถามค่าบริการและห้องว่างได้ทันที</p>
+    <div class="hero-cta" style="justify-content:center">
+      <a class="btn btn-green btn-lg" href="tel:0430000000">โทร 043-000-000</a>
+      <a class="btn btn-ghost btn-lg" href="public/contact.php">กรอกแบบฟอร์มนัดเยี่ยมชม</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap f-grid">
+    <div>
+      <div class="f-logo">
+        <span class="logo-mark"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20.5 4.2 12.9a4.6 4.6 0 0 1 6.5-6.5l1.3 1.3 1.3-1.3a4.6 4.6 0 0 1 6.5 6.5z"/></svg></span>
+        <span class="logo-text">ฮักเนอร์สซิ่งโฮม</span>
+      </div>
+      <p>ศูนย์ดูแลผู้สูงอายุที่เชื่อว่าการดูแลที่ดีเริ่มจากความเข้าใจ ให้เราดูแลท่านเหมือนคนในครอบครัว</p>
+    </div>
+    <div>
+      <h4>เมนู</h4>
+      <ul>
+        <li><a href="#about">เกี่ยวกับเรา</a></li>
+        <li><a href="#services">บริการของเรา</a></li>
+        <li><a href="#activities">กิจกรรม</a></li>
+        <li><a href="#news">ข่าวสาร</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>บริการ</h4>
+      <ul>
+        <li><a href="#services">ดูแลสุขภาพ</a></li>
+        <li><a href="#services">กายภาพบำบัด</a></li>
+        <li><a href="#services">โภชนาการ</a></li>
+        <li><a href="#services">ดูแล 24 ชั่วโมง</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>ติดต่อเรา</h4>
+      <ul>
+        <li>123 ถนนมิตรภาพ ต.ในเมือง อ.เมือง จ.ขอนแก่น 40000</li>
+        <li><a href="tel:0430000000">โทร 043-000-000</a></li>
+        <li><a href="mailto:info@hugnursinghome.com">info@hugnursinghome.com</a></li>
+        <li>เปิดทุกวัน 09.00–17.00 น.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="f-bottom">© 2567 ฮักเนอร์สซิ่งโฮม สงวนลิขสิทธิ์</div>
+</footer>
+
+<!-- AI CHAT -->
+<div class="chat-box" id="chatBox">
+  <div class="chat-head">
+    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="8" width="16" height="11" rx="3"/><path d="M12 4.5V8M9 13h.01M15 13h.01M9.5 16.2h5"/></svg> ผู้ช่วยอัจฉริยะ
+    <button onclick="toggleChat()" aria-label="ปิดหน้าต่างแชท"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+  </div>
+  <div class="chat-body" id="chatBody">
+    <div class="bubble">สวัสดีค่ะ มีอะไรให้ช่วยเกี่ยวกับฮักเนอร์สซิ่งโฮมไหมคะ</div>
+    <div class="chips">
+      <button class="chip" onclick="ask(this)">บริการของเรามีอะไรบ้าง</button>
+      <button class="chip" onclick="ask(this)">ค่าบริการเท่าไร</button>
+      <button class="chip" onclick="ask(this)">การรับผู้สูงอายุเข้าดูแลต้องทำอย่างไร</button>
+      <button class="chip" onclick="ask(this)">ที่ตั้งของศูนย์อยู่ที่ไหน</button>
+    </div>
+  </div>
+  <div class="chat-foot">
+    <input id="chatInput" placeholder="พิมพ์คำถาม..." onkeydown="if(event.key==='Enter')send()">
+    <button onclick="send()" aria-label="ส่งข้อความ"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5 20 5l-3.2 15.5-4.5-5.2z"/><path d="m12.3 15.3 8.7-10"/></svg></button>
+  </div>
+</div>
+<button class="chat-fab" onclick="toggleChat()" aria-label="เปิดผู้ช่วยอัจฉริยะ"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 18.5V7.8A2.8 2.8 0 0 1 7.3 5h9.4A2.8 2.8 0 0 1 19.5 7.8v5.9a2.8 2.8 0 0 1-2.8 2.8H8.4z"/><path d="M9 10h6M9 13h4"/></svg></button>
+
+<script>
+function toggleChat(){document.getElementById('chatBox').classList.toggle('open')}
+function ask(el){document.getElementById('chatInput').value=el.textContent;send()}
+function send(){
+  const i=document.getElementById('chatInput'),b=document.getElementById('chatBody');
+  if(!i.value.trim())return;
+  const u=document.createElement('div');
+  u.className='bubble';u.style.background='#fff';u.style.border='1px solid var(--line)';
+  u.textContent=i.value;b.appendChild(u);
+  const a=document.createElement('div');
+  a.className='bubble';a.textContent='ขอบคุณสำหรับคำถามค่ะ ระบบจะเชื่อมต่อกับ AI เพื่อตอบคำถามนี้ (ส่วนนี้ต่อ API ภายหลัง)';
+  b.appendChild(a);i.value='';b.scrollTop=b.scrollHeight;
+}
+</script>
+</body>
+</html>
