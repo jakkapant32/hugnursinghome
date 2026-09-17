@@ -1,2 +1,8 @@
 includes/db.config.php
 Data.txt
+/assets/uploads/gallery/*
+!/assets/uploads/gallery/.gitkeep
+/assets/uploads/news/*
+!/assets/uploads/news/.gitkeep
+/assets/uploads/residents/*
+!/assets/uploads/residents/.gitkeep

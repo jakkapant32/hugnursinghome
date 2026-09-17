@@ -9,6 +9,7 @@ $totalStaff     = $pdo->query("SELECT COUNT(*) FROM staff WHERE is_active = 1")-
 $totalMale      = $pdo->query("SELECT COUNT(*) FROM residents WHERE gender = 'ชาย' AND status = 'กำลังรับบริการ'")->fetchColumn();
 $totalFemale    = $pdo->query("SELECT COUNT(*) FROM residents WHERE gender = 'หญิง' AND status = 'กำลังรับบริการ'")->fetchColumn();
 $upcomingEvents = $pdo->query("SELECT COUNT(*) FROM news WHERE category = 'กิจกรรม' AND event_date >= CURRENT_DATE")->fetchColumn();
+$unreadInbox    = (int)$pdo->query('SELECT COUNT(*) FROM contact_messages WHERE is_read = 0')->fetchColumn();
 
 $recentResidents = $pdo->query(
     "SELECT resident_id, full_name, gender, admitted_date, status
@@ -54,8 +55,8 @@ $active = 'dashboard';
           <div><div class="label">กิจกรรมที่จะถึง</div><div class="value"><?= (int)$upcomingEvents ?> กิจกรรม</div></div>
         </div>
         <div class="stat-card">
-          <div class="icon icon-dark"><?= hug_icon('check', 22) ?></div>
-          <div><div class="label">สถานะระบบ</div><div class="value" style="font-size:1rem;">ปกติ</div></div>
+          <div class="icon icon-dark"><?= hug_icon('mail', 22) ?></div>
+          <div><div class="label">ข้อความยังไม่อ่าน</div><div class="value"><a href="manage_inbox.php" style="color:inherit;text-decoration:none;"><?= $unreadInbox ?> ฉบับ</a></div></div>
         </div>
       </div>
 

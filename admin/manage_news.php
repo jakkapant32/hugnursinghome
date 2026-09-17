@@ -2,6 +2,7 @@
 require_once __DIR__ . '/../includes/auth_check.php';
 require_once __DIR__ . '/../includes/db.php';
 require_once __DIR__ . '/../includes/icons.php';
+require_once __DIR__ . '/../includes/upload_helpers.php';
 
 $active = 'news';
 $errors = [];
@@ -19,7 +20,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $category     = $_POST['category'] ?? 'ข่าวสาร';
     $title        = trim($_POST['title'] ?? '');
     $content      = trim($_POST['content'] ?? '');
-    $cover_image  = trim($_POST['cover_image'] ?? '');
+    $existingCover = null;
+    if ($id) {
+        $row = $pdo->prepare('SELECT cover_image FROM news WHERE news_id = :id');
+        $row->execute([':id' => (int)$id]);
+        $existingCover = $row->fetchColumn() ?: null;
+    }
+    $cover_image = hug_resolve_image_path(
+        $_FILES['image_file'] ?? null,
+        'news',
+        $_POST['cover_image'] ?? '',
+        is_string($existingCover) ? $existingCover : null,
+        $errors
+    );
     $event_date   = $_POST['event_date'] ?: null;
     $is_published = isset($_POST['is_published']) ? 1 : 0;
 
@@ -78,7 +91,7 @@ $items = $pdo->query('SELECT * FROM news ORDER BY created_at DESC')->fetchAll();
       <div class="panel" style="margin-bottom:20px;">
         <div class="panel-head"><h3><?= $editRow ? 'แก้ไขข่าว' : 'เพิ่มข่าว' ?></h3></div>
         <?php foreach ($errors as $e): ?><p class="error-text"><?= htmlspecialchars($e) ?></p><?php endforeach; ?>
-        <form method="post">
+        <form method="post" enctype="multipart/form-data">
           <input type="hidden" name="news_id" value="<?= htmlspecialchars($editRow['news_id'] ?? '') ?>">
           <div class="form-grid">
             <div class="form-field"><label>หมวด</label>
@@ -91,8 +104,15 @@ $items = $pdo->query('SELECT * FROM news ORDER BY created_at DESC')->fetchAll();
               <input type="date" name="event_date" value="<?= htmlspecialchars($editRow['event_date'] ?? '') ?>"></div>
             <div class="form-field" style="grid-column:1/-1;"><label>หัวข้อ</label>
               <input type="text" name="title" required value="<?= htmlspecialchars($editRow['title'] ?? '') ?>"></div>
-            <div class="form-field" style="grid-column:1/-1;"><label>รูปปก (URL/path)</label>
-              <input type="text" name="cover_image" value="<?= htmlspecialchars($editRow['cover_image'] ?? '') ?>"></div>
+            <div class="form-field"><label>อัปโหลดรูปปก</label>
+              <input type="file" name="image_file" accept="image/jpeg,image/png,image/webp"></div>
+            <div class="form-field"><label>หรือ URL / path</label>
+              <input type="text" name="cover_image" value="<?= htmlspecialchars($editRow['cover_image'] ?? '') ?>"
+                     placeholder="https://... หรือ /assets/uploads/..."></div>
+            <?php
+            $uploadPreviewSrc = $editRow['cover_image'] ?? '';
+            require __DIR__ . '/../includes/admin_image_preview.php';
+            ?>
             <div class="form-field" style="grid-column:1/-1;"><label>เนื้อหา</label>
               <textarea name="content" rows="5" required><?= htmlspecialchars($editRow['content'] ?? '') ?></textarea></div>
             <div class="form-field" style="display:flex;align-items:center;gap:8px;">
@@ -126,5 +146,6 @@ $items = $pdo->query('SELECT * FROM news ORDER BY created_at DESC')->fetchAll();
     </div>
   </main>
 </div>
+<script src="/assets/js/admin-image-preview.js"></script>
 </body>
 </html>

@@ -2,6 +2,7 @@
 require_once __DIR__ . '/../includes/auth_check.php';
 require_once __DIR__ . '/../includes/db.php';
 require_once __DIR__ . '/../includes/icons.php';
+require_once __DIR__ . '/../includes/upload_helpers.php';
 
 $active = 'residents';
 $errors = [];
@@ -28,6 +29,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $status       = $_POST['status'] ?? 'กำลังรับบริการ';
     $health_notes = trim($_POST['health_notes'] ?? '');
 
+    $existingPhoto = null;
+    if ($id) {
+        $row = $pdo->prepare('SELECT photo_path FROM residents WHERE resident_id = :id');
+        $row->execute([':id' => (int)$id]);
+        $existingPhoto = $row->fetchColumn() ?: null;
+    }
+    $photo_path = hug_resolve_image_path(
+        $_FILES['image_file'] ?? null,
+        'residents',
+        $_POST['photo_path'] ?? '',
+        is_string($existingPhoto) ? $existingPhoto : null,
+        $errors
+    );
+
     if ($full_name === '') $errors[] = 'กรุณากรอกชื่อ-นามสกุล';
 
     if (!$errors) {
@@ -36,26 +51,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 "UPDATE residents SET prefix=:prefix, full_name=:full_name, gender=:gender,
                  birth_date=:birth_date, phone=:phone, guardian_name=:guardian_name,
                  guardian_phone=:guardian_phone, admitted_date=:admitted_date, status=:status,
-                 health_notes=:health_notes WHERE resident_id=:id"
+                 health_notes=:health_notes, photo_path=:photo_path WHERE resident_id=:id"
             );
             $stmt->execute([
                 ':prefix'=>$prefix, ':full_name'=>$full_name, ':gender'=>$gender,
                 ':birth_date'=>$birth_date, ':phone'=>$phone, ':guardian_name'=>$guardian,
                 ':guardian_phone'=>$guardianTel, ':admitted_date'=>$admitted, ':status'=>$status,
-                ':health_notes'=>$health_notes, ':id'=>$id,
+                ':health_notes'=>$health_notes, ':photo_path'=>$photo_path ?: null, ':id'=>$id,
             ]);
         } else {
             $stmt = $pdo->prepare(
                 "INSERT INTO residents (prefix, full_name, gender, birth_date, phone,
-                 guardian_name, guardian_phone, admitted_date, status, health_notes, created_by)
+                 guardian_name, guardian_phone, admitted_date, status, health_notes, photo_path, created_by)
                  VALUES (:prefix,:full_name,:gender,:birth_date,:phone,:guardian_name,
-                 :guardian_phone,:admitted_date,:status,:health_notes,:created_by)"
+                 :guardian_phone,:admitted_date,:status,:health_notes,:photo_path,:created_by)"
             );
             $stmt->execute([
                 ':prefix'=>$prefix, ':full_name'=>$full_name, ':gender'=>$gender,
                 ':birth_date'=>$birth_date, ':phone'=>$phone, ':guardian_name'=>$guardian,
                 ':guardian_phone'=>$guardianTel, ':admitted_date'=>$admitted, ':status'=>$status,
-                ':health_notes'=>$health_notes, ':created_by'=>$_SESSION['user_id'],
+                ':health_notes'=>$health_notes, ':photo_path'=>$photo_path ?: null,
+                ':created_by'=>$_SESSION['user_id'],
             ]);
         }
         header('Location: manage_residents.php');
@@ -102,7 +118,7 @@ $residents = $stmt->fetchAll();
 
         <?php foreach ($errors as $e): ?><p class="error-text"><?= htmlspecialchars($e) ?></p><?php endforeach; ?>
 
-        <form method="post">
+        <form method="post" enctype="multipart/form-data">
           <input type="hidden" name="resident_id" value="<?= htmlspecialchars($editRow['resident_id'] ?? '') ?>">
           <div class="form-grid">
             <div class="form-field">
@@ -148,6 +164,15 @@ $residents = $stmt->fetchAll();
                 <?php endforeach; ?>
               </select>
             </div>
+            <div class="form-field"><label>อัปโหลดรูปผู้รับบริการ</label>
+              <input type="file" name="image_file" accept="image/jpeg,image/png,image/webp"></div>
+            <div class="form-field"><label>หรือ URL / path</label>
+              <input type="text" name="photo_path" value="<?= htmlspecialchars($editRow['photo_path'] ?? '') ?>"></div>
+            <?php
+            $uploadPreviewSrc = $editRow['photo_path'] ?? '';
+            $uploadPreviewMax = 120;
+            require __DIR__ . '/../includes/admin_image_preview.php';
+            ?>
           </div>
           <div class="form-field">
             <label>บันทึกด้านสุขภาพ / ข้อควรระวัง</label>
@@ -198,5 +223,6 @@ $residents = $stmt->fetchAll();
     </div>
   </main>
 </div>
+<script src="/assets/js/admin-image-preview.js"></script>
 </body>
 </html>

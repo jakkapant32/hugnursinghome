@@ -1,11 +1,7 @@
 <?php
-session_start();
+require_once __DIR__ . '/../includes/auth_check.php';
 require_once __DIR__ . '/../includes/db.php';
-
-if (!empty($_SESSION['user_id'])) {
-    header('Location: dashboard.php');
-    exit;
-}
+require_admin_role();
 
 $error = '';
 $success = false;
@@ -55,7 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>สมัครสมาชิก | ฮักเนอร์สซิ่งโฮม</title>
+<title>สร้างบัญชีเจ้าหน้าที่ | ฮักเนอร์สซิ่งโฮม</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;500;600;700&family=Prompt:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -65,12 +61,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <div class="login-shell">
   <div class="login-card login-card-wide">
     <?php require __DIR__ . '/../includes/auth_brand.php'; ?>
-    <h2>สมัครสมาชิก</h2>
-    <p class="auth-lead">สำหรับเจ้าหน้าที่ศูนย์ (บทบาท staff)</p>
+    <h2>สร้างบัญชีเจ้าหน้าที่</h2>
+    <p class="auth-lead">สำหรับ admin สร้างบัญชีเจ้าหน้าที่ (staff)</p>
 
     <?php if ($success): ?>
-      <p class="success-text">สมัครสมาชิกเรียบร้อยแล้ว สามารถเข้าสู่ระบบได้ทันที</p>
-      <a class="btn btn-primary" href="login.php">ไปหน้าเข้าสู่ระบบ</a>
+      <p class="success-text">สร้างบัญชี staff เรียบร้อยแล้ว</p>
+      <a class="btn btn-primary" href="dashboard.php">กลับแดชบอร์ด</a>
     <?php else: ?>
       <?php if ($error): ?>
         <p class="error-text"><?= htmlspecialchars($error) ?></p>
@@ -100,11 +96,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           <label for="password_confirm">ยืนยันรหัสผ่าน</label>
           <input type="password" id="password_confirm" name="password_confirm" required autocomplete="new-password">
         </div>
-        <button type="submit" class="btn btn-primary">สมัครสมาชิก</button>
+        <button type="submit" class="btn btn-primary">สร้างบัญชี</button>
       </form>
     <?php endif; ?>
 
-    <p class="auth-foot">มีบัญชีแล้ว? <a href="login.php">เข้าสู่ระบบหลังบ้าน</a></p>
+    <p class="auth-foot"><a href="dashboard.php">← กลับแดชบอร์ด</a></p>
     <p class="auth-foot auth-foot-muted">ญาติ/สมาชิก: <a href="/public/register.php">สมัครที่หน้าเว็บ</a></p>
   </div>
 </div>

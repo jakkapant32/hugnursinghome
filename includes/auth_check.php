@@ -10,6 +10,12 @@ if (empty($_SESSION['user_id'])) {
     exit;
 }
 
+$role = $_SESSION['role'] ?? '';
+if ($role === 'member') {
+    header('Location: /public/account.php');
+    exit;
+}
+
 // ตัวช่วยจำกัดสิทธิ์เฉพาะ admin (เรียกใช้เมื่อจำเป็น)
 function require_admin_role(): void
 {

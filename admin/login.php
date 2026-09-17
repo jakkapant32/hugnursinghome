@@ -72,8 +72,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       <button type="submit" class="btn btn-primary">เข้าสู่ระบบ</button>
     </form>
 
-    <p class="auth-foot">เจ้าหน้าที่ใหม่? <a href="register.php">สมัครบัญชีเจ้าหน้าที่</a></p>
-    <p class="auth-foot auth-foot-muted">สมาชิก/ญาติ: <a href="/public/login.php">เข้าสู่ระบบหน้าเว็บ</a></p>
+    <p class="auth-foot">Admin: <a href="register.php">สร้างบัญชีเจ้าหน้าที่</a> · <a href="manage_users.php">จัดการผู้ใช้</a></p>
+    <p class="auth-foot auth-foot-muted">Admin จัดการบัญชีและสิทธิ์ในระบบ · Staff ใช้งานข้อมูลและเนื้อหาหลังบ้าน (ไม่มีเมนูบัญชีผู้ใช้)</p>
   </div>
 </div>
 </body>

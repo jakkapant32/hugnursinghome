@@ -2,6 +2,7 @@
 require_once __DIR__ . '/../includes/auth_check.php';
 require_once __DIR__ . '/../includes/db.php';
 require_once __DIR__ . '/../includes/icons.php';
+require_once __DIR__ . '/../includes/upload_helpers.php';
 
 $active = 'gallery';
 $errors = [];
@@ -16,12 +17,24 @@ if (isset($_GET['delete'])) {
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $id         = $_POST['gallery_id'] ?? '';
     $album_name = trim($_POST['album_name'] ?? '');
-    $image_path = trim($_POST['image_path'] ?? '');
+    $existingPath = null;
+    if ($id) {
+        $row = $pdo->prepare('SELECT image_path FROM gallery WHERE gallery_id = :id');
+        $row->execute([':id' => (int)$id]);
+        $existingPath = $row->fetchColumn() ?: null;
+    }
+    $image_path = hug_resolve_image_path(
+        $_FILES['image_file'] ?? null,
+        'gallery',
+        $_POST['image_path'] ?? '',
+        is_string($existingPath) ? $existingPath : null,
+        $errors
+    );
     $caption    = trim($_POST['caption'] ?? '');
     $news_id    = $_POST['news_id'] !== '' ? (int)$_POST['news_id'] : null;
 
     if ($album_name === '') $errors[] = 'กรุณากรอกชื่ออัลบั้ม';
-    if ($image_path === '') $errors[] = 'กรุณาระบุที่อยู่รูปภาพ (URL หรือ path)';
+    if ($image_path === '') $errors[] = 'อัปโหลดรูปหรือระบุ URL/path';
 
     if (!$errors) {
         if ($id) {
@@ -74,7 +87,7 @@ $newsList = $pdo->query('SELECT news_id, title FROM news ORDER BY created_at DES
       <div class="panel" style="margin-bottom:20px;">
         <div class="panel-head"><h3><?= $editRow ? 'แก้ไขรูปภาพ' : 'เพิ่มรูปภาพ' ?></h3></div>
         <?php foreach ($errors as $e): ?><p class="error-text"><?= htmlspecialchars($e) ?></p><?php endforeach; ?>
-        <form method="post">
+        <form method="post" enctype="multipart/form-data">
           <input type="hidden" name="gallery_id" value="<?= htmlspecialchars($editRow['gallery_id'] ?? '') ?>">
           <div class="form-grid">
             <div class="form-field">
@@ -82,14 +95,22 @@ $newsList = $pdo->query('SELECT news_id, title FROM news ORDER BY created_at DES
               <input type="text" name="album_name" required value="<?= htmlspecialchars($editRow['album_name'] ?? '') ?>">
             </div>
             <div class="form-field">
-              <label>ที่อยู่รูป (URL หรือ /assets/...)</label>
-              <input type="text" name="image_path" required value="<?= htmlspecialchars($editRow['image_path'] ?? '') ?>"
-                     placeholder="https://... หรือ /assets/images/...">
+              <label>อัปโหลดรูป</label>
+              <input type="file" name="image_file" accept="image/jpeg,image/png,image/webp">
+            </div>
+            <div class="form-field">
+              <label>หรือ URL / path</label>
+              <input type="text" name="image_path" value="<?= htmlspecialchars($editRow['image_path'] ?? '') ?>"
+                     placeholder="https://... หรือ /assets/uploads/...">
             </div>
             <div class="form-field">
               <label>คำอธิบาย</label>
               <input type="text" name="caption" value="<?= htmlspecialchars($editRow['caption'] ?? '') ?>">
             </div>
+            <?php
+            $uploadPreviewSrc = $editRow['image_path'] ?? '';
+            require __DIR__ . '/../includes/admin_image_preview.php';
+            ?>
             <div class="form-field">
               <label>ผูกกับข่าว/กิจกรรม (ไม่บังคับ)</label>
               <select name="news_id">
@@ -133,5 +154,6 @@ $newsList = $pdo->query('SELECT news_id, title FROM news ORDER BY created_at DES
     </div>
   </main>
 </div>
+<script src="/assets/js/admin-image-preview.js"></script>
 </body>
 </html>

@@ -10,7 +10,7 @@ $latestNews = $pdo->query(
      WHERE is_published = 1 ORDER BY COALESCE(event_date, created_at) DESC LIMIT 3"
 )->fetchAll();
 
-$page_title = 'หน้าแรก';
+$page_title_key = 'page.home';
 $active_page = 'home';
 require_once __DIR__ . '/../includes/icons.php';
 require_once __DIR__ . '/../includes/header.php';
@@ -25,12 +25,12 @@ $heroImg = '/assets/images/hero-care.jpg';
   </div>
   <div class="container">
     <div class="hero-inner hero-copy">
-      <h1>ดูแลด้วยใจ<span class="line2 accent">ห่วงใยเหมือนคนในครอบครัว</span></h1>
-      <p class="lead">ศูนย์ดูแลผู้สูงอายุฮักเนอร์สซิ่งโฮม จังหวัดขอนแก่น</p>
-      <p class="sub">ทีมพยาบาลวิชาชีพและผู้ช่วยดูแลประจำการตลอด 24 ชั่วโมง พร้อมสภาพแวดล้อมที่ปลอดภัย สะอาด และอบอุ่นเหมือนอยู่บ้าน</p>
+      <h1><?= hug_t('home.hero_title_1') ?><span class="line2 accent"><?= hug_t('home.hero_title_2') ?></span></h1>
+      <p class="lead"><?= hug_t('home.hero_lead') ?></p>
+      <p class="sub"><?= hug_t('home.hero_sub') ?></p>
       <div class="hero-actions hero-cta">
-        <a href="services.php" class="btn btn-green btn-lg">ดูบริการทั้งหมด</a>
-        <a href="contact.php" class="btn btn-rose btn-lg">นัดเข้าเยี่ยมชม</a>
+        <a href="services.php" class="btn btn-green btn-lg"><?= hug_t('home.cta_services') ?></a>
+        <a href="contact.php" class="btn btn-rose btn-lg"><?= hug_t('home.cta_visit') ?></a>
       </div>
       <div class="hero-stats">
         <div><strong>52</strong><span>ผู้สูงอายุที่เราดูแล</span></div>

@@ -6,6 +6,8 @@ RUN apt-get update && apt-get install -y libpq-dev \
 
 WORKDIR /app
 COPY . .
+RUN mkdir -p /app/assets/uploads/gallery /app/assets/uploads/news /app/assets/uploads/residents \
+    && chmod -R 775 /app/assets/uploads
 
 ENV PORT=10000
 EXPOSE 10000

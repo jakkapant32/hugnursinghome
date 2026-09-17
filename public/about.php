@@ -1,5 +1,5 @@
 <?php
-$page_title = 'เกี่ยวกับเรา';
+$page_title_key = 'page.about';
 $active_page = 'about';
 require_once __DIR__ . '/../includes/header.php';
 ?>
@@ -7,8 +7,8 @@ require_once __DIR__ . '/../includes/header.php';
 <section class="section">
   <div class="container">
     <div class="section-head">
-      <h2>เกี่ยวกับฮักเนอร์สซิ่งโฮม</h2>
-      <p>รู้จักเรามากขึ้น ทั้งประวัติความเป็นมา วิสัยทัศน์ และพันธกิจ</p>
+      <h2><?= hug_t('about.title') ?></h2>
+      <p><?= hug_t('about.lead') ?></p>
     </div>
 
     <div class="grid-2" style="margin-bottom:56px;">
