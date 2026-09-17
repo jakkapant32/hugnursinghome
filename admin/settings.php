@@ -55,7 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <main class="admin-main">
     <?php $topbar_title = 'ตั้งค่าบัญชี'; require __DIR__ . '/../includes/admin_topbar.php'; ?>
     <div class="admin-content">
-      <div class="panel" style="max-width:480px;">
+      <div class="panel">
         <div class="panel-head"><h3>โปรไฟล์ของฉัน</h3></div>
         <?php if ($error): ?><p class="error-text"><?= htmlspecialchars($error) ?></p><?php endif; ?>
         <?php if ($success): ?><p class="success-text"><?= htmlspecialchars($success) ?></p><?php endif; ?>

@@ -16,9 +16,9 @@ $phoneTel = hug_phone_tel($site['contact_phone']);
     <div>
       <div class="f-logo">
         <span class="logo-mark mark"><?= hug_icon('heart', 22) ?></span>
-        <span class="brand-text logo-text"><?= htmlspecialchars($site['site_name']) ?></span>
+        <span class="brand-text logo-text"><?= hug_t('site.brand_name') ?></span>
       </div>
-      <p><?= htmlspecialchars($site['footer_description']) ?></p>
+      <p><?= hug_current_lang() === 'en' ? hug_t('footer.desc') : htmlspecialchars($site['footer_description']) ?></p>
     </div>
     <div>
       <h4><?= hug_t('footer.menu') ?></h4>
@@ -53,7 +53,7 @@ $phoneTel = hug_phone_tel($site['contact_phone']);
       </ul>
     </div>
   </div>
-  <div class="footer-bottom">&copy; <?= date('Y') + 543 ?> <?= htmlspecialchars($site['site_name']) ?> <?= hug_t('footer.rights') ?></div>
+  <div class="footer-bottom">&copy; <?= date('Y') + 543 ?> <?= hug_t('site.brand_name') ?> <?= hug_t('footer.rights') ?></div>
 </footer>
 <a href="<?= htmlspecialchars($lineUrl) ?>" class="line-fab" target="_blank" rel="noopener noreferrer" aria-label="แชทกับเราทาง Line">
   <?= hug_line_icon(32) ?>

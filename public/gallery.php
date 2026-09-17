@@ -21,7 +21,7 @@ require_once __DIR__ . '/../includes/header.php';
         <img src="<?= htmlspecialchars($img['image_path']) ?>" alt="<?= htmlspecialchars($img['caption'] ?? '') ?>">
       <?php endforeach; ?>
       <?php if (!$images): ?>
-        <p>ยังไม่มีรูปภาพในแกลเลอรี</p>
+        <p><?= hug_t('gallery.empty') ?></p>
       <?php endif; ?>
     </div>
   </div>

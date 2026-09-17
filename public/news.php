@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . '/../includes/db.php';
+require_once __DIR__ . '/../includes/content_i18n.php';
 
 $detailId = isset($_GET['id']) ? (int)$_GET['id'] : 0;
 $article = null;
@@ -14,11 +15,14 @@ if ($detailId > 0) {
 }
 
 if ($article) {
+    $article = hug_localize_news_card($article);
     $page_title = $article['title'];
     $active_page = 'news';
-    require_once __DIR__ . '/../includes/i18n.php';
     require_once __DIR__ . '/../includes/header.php';
     $cover = $article['cover_image'] ?: '/assets/images/news-placeholder.jpg';
+    $catLabel = $article['event_date']
+        ? hug_format_display_date($article['event_date'])
+        : htmlspecialchars($article['category']);
     ?>
 <section class="section">
   <div class="container" style="max-width:720px;">
@@ -26,7 +30,7 @@ if ($article) {
     <article class="card" style="overflow:hidden;">
       <img src="<?= htmlspecialchars($cover) ?>" alt="<?= htmlspecialchars($article['title']) ?>" style="width:100%;max-height:320px;object-fit:cover;">
       <div class="card-body">
-        <span class="date"><?= $article['event_date'] ? date('d M Y', strtotime($article['event_date'])) : htmlspecialchars($article['category']) ?></span>
+        <span class="date"><?= $catLabel ?></span>
         <h1 style="margin:.5rem 0 1rem;font-size:1.75rem;"><?= htmlspecialchars($article['title']) ?></h1>
         <div style="line-height:1.75;color:var(--ink-soft);white-space:pre-wrap;"><?= nl2br(htmlspecialchars($article['content'])) ?></div>
       </div>
@@ -56,17 +60,18 @@ require_once __DIR__ . '/../includes/header.php';
     </div>
     <div class="grid-3">
       <?php foreach ($news as $n): ?>
+      <?php $n = hug_localize_news_card($n); ?>
       <a class="card" href="news.php?id=<?= (int)$n['news_id'] ?>" style="text-decoration:none;color:inherit;">
         <img src="<?= htmlspecialchars($n['cover_image'] ?: '/assets/images/news-placeholder.jpg') ?>" alt="<?= htmlspecialchars($n['title']) ?>">
         <div class="card-body">
-          <span class="date"><?= $n['event_date'] ? date('d M Y', strtotime($n['event_date'])) : htmlspecialchars($n['category']) ?></span>
+          <span class="date"><?= $n['event_date'] ? hug_format_display_date($n['event_date']) : htmlspecialchars($n['category']) ?></span>
           <h3><?= htmlspecialchars($n['title']) ?></h3>
           <p><?= htmlspecialchars(mb_substr($n['content'], 0, 100)) ?>...</p>
         </div>
       </a>
       <?php endforeach; ?>
       <?php if (!$news): ?>
-        <p>ยังไม่มีข่าวสารในขณะนี้</p>
+        <p><?= hug_t('news.empty') ?></p>
       <?php endif; ?>
     </div>
   </div>

@@ -51,7 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <main class="admin-main">
     <?php $topbar_title = 'Footer & ติดต่อเรา'; require __DIR__ . '/../includes/admin_topbar.php'; ?>
     <div class="admin-content">
-      <div class="panel" style="max-width:640px;">
+      <div class="panel">
         <div class="panel-head"><h3>แก้ไขส่วนล่างเว็บ (Footer) และหน้าติดต่อเรา</h3></div>
         <p style="color:var(--muted);font-size:.9rem;margin:0 0 16px;">เฉพาะ Admin · ข้อมูลนี้แสดงที่ Footer ทุกหน้าและบล็อกติดต่อในหน้าเว็บ</p>
         <?php if ($error): ?><p class="error-text"><?= htmlspecialchars($error) ?></p><?php endif; ?>

@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . '/../includes/db.php';
+require_once __DIR__ . '/../includes/content_i18n.php';
 
 $services = $pdo->query(
     "SELECT title, description, icon FROM services WHERE is_published = 1 ORDER BY sort_order ASC"
@@ -19,6 +20,7 @@ require_once __DIR__ . '/../includes/header.php';
     </div>
     <div class="grid-3">
       <?php foreach ($services as $s): ?>
+      <?php $s = hug_localize_service($s); ?>
       <div class="card">
         <div class="card-body" style="text-align:center;">
           <div class="icon"><?= hug_icon('heart', 22) ?></div>

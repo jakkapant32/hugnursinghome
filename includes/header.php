@@ -12,7 +12,7 @@ $lang = hug_current_lang();
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title><?= isset($page_title) ? htmlspecialchars($page_title) . ' | ' : '' ?>ฮักเนอร์สซิ่งโฮม</title>
+<title><?= isset($page_title) ? htmlspecialchars($page_title) . ' | ' : '' ?><?= hug_t('site.brand_sub') ?></title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;500;600;700&family=Prompt:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -35,7 +35,7 @@ $lang = hug_current_lang();
   <nav class="nav container">
     <a href="index.php" class="brand">
       <span class="mark logo-mark"><?= hug_icon('heart', 22) ?></span>
-      <span class="brand-text">ฮักเนอร์สซิ่งโฮม<small><?= hug_t('site.brand_sub') ?></small></span>
+      <span class="brand-text"><?= hug_t('site.brand_name') ?><small><?= hug_t('site.brand_sub') ?></small></span>
     </a>
     <button type="button" class="nav-toggle" aria-label="เปิดเมนู"><?= hug_icon('menu', 24) ?></button>
     <ul class="nav-links">

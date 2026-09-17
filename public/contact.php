@@ -80,7 +80,7 @@ $phoneTel = hug_phone_tel($site['contact_phone']);
 
       <div>
         <?php if ($success): ?>
-          <p class="alert-success">ส่งข้อความเรียบร้อยแล้ว ทีมงานจะติดต่อกลับโดยเร็วที่สุด ขอบคุณค่ะ</p>
+          <p class="alert-success"><?= hug_t('contact.success') ?></p>
         <?php endif; ?>
         <?php if ($errors): ?>
           <div class="alert-error"><?php foreach ($errors as $e): ?><div><?= htmlspecialchars($e) ?></div><?php endforeach; ?></div>
@@ -88,23 +88,23 @@ $phoneTel = hug_phone_tel($site['contact_phone']);
 
         <form method="post" novalidate>
           <div class="form-field">
-            <label for="name">ชื่อ-นามสกุล</label>
+            <label for="name"><?= hug_t('contact.form_name') ?></label>
             <input type="text" id="name" name="name" required>
           </div>
           <div class="form-field">
-            <label for="phone">เบอร์โทรศัพท์</label>
+            <label for="phone"><?= hug_t('contact.form_phone') ?></label>
             <input type="tel" id="phone" name="phone">
           </div>
           <div class="form-field">
-            <label for="email">อีเมล</label>
+            <label for="email"><?= hug_t('contact.email') ?></label>
             <input type="email" id="email" name="email">
           </div>
           <div class="form-field">
-            <label for="subject">หัวข้อ</label>
+            <label for="subject"><?= hug_t('contact.form_subject') ?></label>
             <input type="text" id="subject" name="subject">
           </div>
           <div class="form-field">
-            <label for="message">ข้อความ</label>
+            <label for="message"><?= hug_t('contact.form_message') ?></label>
             <textarea id="message" name="message" rows="5" required></textarea>
           </div>
           <button type="submit" class="btn btn-primary"><?= hug_t('contact.submit') ?></button>

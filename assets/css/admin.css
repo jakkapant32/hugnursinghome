@@ -207,12 +207,156 @@ table.data-table tr:hover td { background: var(--cream); }
 }
 
 /* ---------- Forms ---------- */
-.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-.form-field { margin-bottom: 14px; }
-.form-field label { display: block; font-size: .85rem; color: var(--muted); margin-bottom: 6px; }
-.form-field input, .form-field select, .form-field textarea {
-  width: 100%; padding: 10px 12px; border: 1px solid var(--line);
-  border-radius: 8px; font-family: var(--font-body); font-size: .93rem;
+.admin-content .panel > form {
+  max-width: 42rem;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px 18px;
+  align-items: start;
+}
+
+.form-field {
+  margin-bottom: 0;
+  min-width: 0;
+}
+
+.form-field label {
+  display: block;
+  font-size: .85rem;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+
+.form-field input,
+.form-field select,
+.form-field textarea {
+  width: 100%;
+  max-width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  font-family: var(--font-body);
+  font-size: .93rem;
+  box-sizing: border-box;
+}
+
+.form-field input[type="date"],
+.form-field input[type="number"],
+.form-field select {
+  max-width: 14.5rem;
+}
+
+.form-field input[name="prefix"],
+.form-field input[name="phone"],
+.form-field input[name="guardian_phone"],
+.form-field input[name="contact_phone"],
+.form-field input[name="contact_hours"],
+.form-field input#contact_phone,
+.form-field input#contact_hours {
+  max-width: 13rem;
+}
+
+.form-field input[name="username"] {
+  max-width: 14rem;
+}
+
+.form-field input[type="email"],
+.form-field input#contact_email {
+  max-width: 22rem;
+}
+
+.form-field input[type="password"] {
+  max-width: 16rem;
+}
+
+.form-field input[name="full_name"],
+.form-field input[name="display_name"],
+.form-field input[name="site_name"],
+.form-field input[name="position"],
+.form-field input[name="icon"] {
+  max-width: 22rem;
+}
+
+.form-field input[type="url"],
+.form-field input#line_url {
+  max-width: 28rem;
+}
+
+.form-field input[name="cover_image"],
+.form-field input[name="image_path"],
+.form-field input[name="photo_path"] {
+  max-width: 26rem;
+}
+
+.form-field select[name="resident_id"] {
+  max-width: 100%;
+}
+
+.admin-content .panel > form:has(input[type="search"]) {
+  max-width: 36rem;
+}
+
+.form-field input[type="file"] {
+  font-size: .86rem;
+  padding: 8px 10px;
+}
+
+.form-field[style*="grid-column:1/-1"],
+.form-field.form-field-full,
+.form-field:has(input[name="title"]),
+.form-field:has(input[name="cover_image"]),
+.form-field:has(input[name="image_path"]),
+.form-field:has(input[name="photo_path"]),
+.form-field:has(input[name="album_name"]),
+.form-field:has(textarea) {
+  grid-column: 1 / -1;
+}
+
+.form-field textarea {
+  min-height: 5.5rem;
+  resize: vertical;
+  max-width: 100%;
+}
+
+.form-field:has(input[type="checkbox"]) {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.form-field:has(input[type="checkbox"]) label {
+  margin: 0;
+}
+
+.admin-content form > .form-field:not(.form-grid .form-field) {
+  margin-bottom: 14px;
+}
+
+.upload-preview-wrap {
+  grid-column: 1 / -1;
+  max-width: 100%;
+}
+
+@media (max-width: 720px) {
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .form-field input[type="date"],
+  .form-field select,
+  .form-field input[name="prefix"],
+  .form-field input[name="phone"],
+  .form-field input[name="guardian_phone"],
+  .form-field input[name="username"],
+  .form-field input[type="password"],
+  .form-field input[type="email"] {
+    max-width: 100%;
+  }
 }
 
 /* ---------- Login page ---------- */
